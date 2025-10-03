@@ -12,6 +12,7 @@ public:
 
     bool SaveReport(const std::string &path, std::string data ); 
     bool DeleteReport(const std::string &path); 
+    std::string ReadReport(const std::string &path); 
     
 }; 
 
