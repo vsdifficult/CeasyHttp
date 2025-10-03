@@ -20,6 +20,26 @@ size_t HttpEasyRequests::WriteCallback(void *contents, size_t size, size_t nmemb
 
 EasyHttpResult HttpEasyRequests::GETrequest(const std::string &url)
 {
+    return performRequest(url, "GET", "");
+}
+
+EasyHttpResult HttpEasyRequests::POSTrequest(const std::string &url, const std::string &data)
+{
+    return performRequest(url, "POST", data);
+}
+
+EasyHttpResult HttpEasyRequests::PUTrequest(const std::string &url, const std::string &data)
+{
+    return performRequest(url, "PUT", data);
+}
+
+EasyHttpResult HttpEasyRequests::DELETErequest(const std::string &url)
+{
+    return performRequest(url, "DELETE", "");
+}
+
+EasyHttpResult HttpEasyRequests::performRequest(const std::string &url, const std::string &method, const std::string &data)
+{
     EasyHttpResult result;
 
     if (!curl)
@@ -39,6 +59,20 @@ EasyHttpResult HttpEasyRequests::GETrequest(const std::string &url)
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &result.Data);
     curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
     curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0L);
+
+    if (method == "POST")
+    {
+        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, data.c_str());
+    }
+    else if (method == "PUT")
+    {
+        curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "PUT");
+        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, data.c_str());
+    }
+    else if (method == "DELETE")
+    {
+        curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "DELETE");
+    }
 
     CURLcode res = curl_easy_perform(curl);
 
