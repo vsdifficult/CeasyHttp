@@ -1,14 +1,15 @@
-#ifndef HTTP_RS
-#define HTTP_RS 
+#ifndef HTTP_EASY_RESULTS_H
+#define HTTP_EASY_RESULTS_H
 
-#include <iostream> 
+#include <string>
 
 struct EasyHttpResult
 {
-    std::string Message; 
-    std::string ErrorMessage; 
-    std::string Data; 
+    int HttpCode = 0;
+    std::string Message;
+    std::string ErrorMessage;
+    std::string Data;
 };
 
 
-#endif HTTP_RS
+#endif // HTTP_EASY_RESULTS_H

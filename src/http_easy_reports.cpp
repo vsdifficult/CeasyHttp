@@ -4,6 +4,7 @@
 #include <iostream> 
 #include <fstream>
 
+
 HttpEasyReportsOperations::HttpEasyReportsOperations() { }
 HttpEasyReportsOperations::~HttpEasyReportsOperations() { } 
 
